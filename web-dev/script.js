@@ -43,7 +43,7 @@ function calculateDaysTogether(startDateString) {
   return Math.floor(diffTime / (1000 * 60 * 60 * 24));
 }
 
-const targetText = "Join us as we capture our memories together, one photo at a time.";
+const targetText = "Join us as we capture our memories together, one photo at a time. 📷";
 const typewriterTarget = document.getElementById("typewriter-text");
 
 let charIndex = 0;
