@@ -1,41 +1,47 @@
 document.addEventListener("DOMContentLoaded", () => {
   const hamburger = document.getElementById("hamburger");
   const navLinks = document.getElementById("nav-links");
-
+  const overlay = document.getElementById("overlay");
 
   hamburger.addEventListener("click", () => {
     navLinks.classList.toggle("show");
+    overlay?.classList.toggle("show");
+    hamburger.classList.toggle("active");
   });
-
 
   const links = navLinks.querySelectorAll("a");
   links.forEach(link => {
     link.addEventListener("click", () => {
       navLinks.classList.remove("show");
+      overlay?.classList.remove("show");
+      hamburger.classList.remove("active");
     });
   });
+
+  overlay?.addEventListener("click", () => {
+    navLinks.classList.remove("show");
+    overlay.classList.remove("show");
+    hamburger.classList.remove("active");
+  });
+
+  const daysSpan = document.getElementById('days-together');
+  const days = calculateDaysTogether('2023-10-15');
+  daysSpan.textContent = days;
+
+  const countdownSection = document.querySelector('.anniversary-countdown');
+  setTimeout(() => {
+    countdownSection.classList.add('show');
+  }, 300);
+
+  loopTypewriter();
 });
 
 function calculateDaysTogether(startDateString) {
   const startDate = new Date(startDateString);
   const today = new Date();
-  
   const diffTime = today - startDate;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  
-  return diffDays;
+  return Math.floor(diffTime / (1000 * 60 * 60 * 24));
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  const daysSpan = document.getElementById('days-together');
-  const days = calculateDaysTogether('2023-10-15');
-  daysSpan.textContent = days;
-});
-
-const countdownSection = document.querySelector('.anniversary-countdown');
-setTimeout(() => {
-  countdownSection.classList.add('show');
-}, 300); 
 
 const targetText = "Join us as we capture our memories together, one photo at a time.";
 const typewriterTarget = document.getElementById("typewriter-text");
@@ -49,16 +55,12 @@ function loopTypewriter() {
 
   if (!isDeleting && charIndex < targetText.length) {
     charIndex++;
-    setTimeout(loopTypewriter, 60); 
+    setTimeout(loopTypewriter, 60);
   } else if (isDeleting && charIndex > 0) {
     charIndex--;
     setTimeout(loopTypewriter, 30);
   } else {
     isDeleting = !isDeleting;
-    setTimeout(loopTypewriter, isDeleting ? 1000 : 600); 
+    setTimeout(loopTypewriter, isDeleting ? 1200 : 600);
   }
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  loopTypewriter();
-});
